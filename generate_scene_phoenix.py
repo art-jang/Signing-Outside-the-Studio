@@ -1,15 +1,14 @@
 import argparse
 import glob
-import os
-
 import numpy as np
+import os
+import pandas as pd
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
 from torch.nn import functional as F
 from torch.utils.data import Subset
 
-import pandas as pd
 from bg_datasets import LSUN, SUN397
 from models import UNet
 from utils import utils
@@ -116,11 +115,10 @@ def generate_sign_test_dataset_with_background(
     # LOAD PRE-DEFINED BACKGROUND IMAGES FOR TEST SAMPLES
     split_file = "phoenix_{}_background_{}_{}.txt".format(sign_split, background_type, partition)
     split_path = os.path.join(bg_dataset.root, split_file)
-    assert os.path.exists(split_path
-                          ), "Check pre-defined background data split: {}".format(split_path)
+    assert os.path.exists(split_path), f"Check pre-defined background data split: {split_path}"
 
     print()
-    print("loaded pre-defined background sample indices from: {}".format(split_path))
+    print(f"loaded pre-defined background sample indices from: {split_path}")
     print()
     with open(split_path, "r") as f:
         bg_indices = f.read().splitlines()
@@ -172,20 +170,25 @@ def main(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="")
     parser.add_argument(
-        "--sign_root",
-        default="data/phoenix2014-release/phoenix-2014-multisigner",
-        type=str,
-        help="path to sign dataset video"
-    )
-    parser.add_argument("--sign_split", default="dev", type=str, help="split dataset (dev / test)")
-    parser.add_argument(
-        "--background_type",
-        default="SUN397",
-        type=str,
-        help="background data type (LSUN / SUN397)"
-    )
-    parser.add_argument(
-        "--partition", default=1, type=int, help="partition number for split (1, 2, or 3)"
+        "--sign_root", default="data/phoenix2014-release/phoenix-2014-multisigner", type=str
     )
     args = parser.parse_args()
-    main(args)
+
+    sign_splits = ["dev", "test"]
+    background_types = ["LSUN", "SUN397"]
+    partitions = [1, 2, 3]
+
+    for sign_split in sign_splits:
+        for background_type in background_types:
+            for partition in partitions:
+                if sign_split == "dev" and partition > 1:
+                    break
+
+                print(
+                    "synthesizing backgrounds for PHOENIX {} split with backgrounds {} "
+                    "for partition {}".format(sign_split, background_type, partition)
+                )
+                args.sign_split = sign_split
+                args.background_type = background_type
+                args.partition = partition
+                main(args)

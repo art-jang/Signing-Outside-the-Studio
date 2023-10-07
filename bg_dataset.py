@@ -1,12 +1,10 @@
 # SUN397 datasets
-import os
-
 import numpy as np
+import os
+from typing import Callable, List, Optional, Union
 from PIL import Image
 from torchvision.datasets.lsun import LSUN as _LSUN
 from torchvision.datasets.vision import VisionDataset as _VisionDataset
-
-from typing import Callable, List, Optional, Union
 
 
 # Base class for background dataset
@@ -147,8 +145,7 @@ class SUN397(VisionDataset):
             and returns a transformed version. E.g, ``transforms.RandomCrop``
         target_transform (callable, optional): A function/transform that takes in the
             target and transforms it.
-    """
-    """
+
     reference from https://pytorch.org/vision/stable/_modules/torchvision/datasets/lsun.html#LSUN
     """
 
