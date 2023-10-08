@@ -16,6 +16,14 @@ This code includes two functionalities: (1) an algorithm to automatically and de
 
 
 ## Abstract
+<p align='center'>
+  <img width='90%' src='./assets/teaser.png'/>
+</p>
+  <b>
+Figure 1: (a) VAC trained on monochromatic background sign language videos fails to attend to the signer in the video. (b) Both Baseline (Res18 + LSTM) and VAC severely degrade when tested on our Scene-PHOENIX. In contrast, our framework can still capture signer's expressions and favorably close the gap between test splits of the original PHOENIX-2014 and Scene-PHOENIX. 
+</b>
+<br /> <br />
+
 <p>
 The goal of this work is background-robust continuous sign language recognition. Most existing Continuous Sign Language Recognition (CSLR) benchmarks have fixed backgrounds and are filmed in studios with a static monochromatic background. However, signing is not limited only to studios in the real world.
 </p>
@@ -28,12 +36,6 @@ In order to analyze the robustness of CSLR models under background shifts, we fi
 In this regard, we also propose a simple yet effective training scheme including (1) background randomization and (2) feature disentanglement for CSLR models. The experimental results on our dataset demonstrate that our method generalizes well to other unseen background data with minimal additional training images.
 </p>
 
-<p align='center'>
-  <img width='90%' src='./assets/teaser.png'/>
-<b>
-Figure 1: (a) VAC trained on monochromatic background sign language videos fails to attend to the signer in the video. (b) Both Baseline (Res18 + LSTM) and VAC severely degrade when tested on our Scene-PHOENIX. In contrast, our framework can still capture signer's expressions and favorably close the gap between test splits of the original PHOENIX-2014 and Scene-PHOENIX. 
-</b>
-</p>
 
 ## Requirements
 - Human Segmentation Model
